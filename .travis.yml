@@ -10,3 +10,16 @@ before_install:
 
 script:
   - docker run -e CI=true shyvz/docker-react-frontend npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-south-1"
+  app: "docker-react-frontend"
+  env: "DockerReactFrontend-env"
+  bucket_name: "elasticbeanstalk-ap-south-1-077012474514"
+  bucket_path: "docker-react-frontend"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
